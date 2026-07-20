@@ -1,0 +1,50 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# --- Virtual environments ---
+venv/
+env/
+.venv/
+ENV/
+
+# --- Environment variables (secrets — never commit) ---
+.env
+
+# --- Database (local data, not source) ---
+*.db
+*.sqlite
+*.sqlite3
+instance/
+
+# --- Logs (regenerated on every run) ---
+logs/*.log
+# Keep the logs/ directory itself trackable via its .gitkeep marker
+!logs/.gitkeep
+
+# --- Flask-Migrate / Alembic ---
+# NOTE: migrations/ itself is intentionally NOT ignored — migration
+# scripts are source, committed alongside the models they correspond
+# to, and are how the schema's history travels with the codebase.
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+
+# --- OS-specific ---
+.DS_Store
+Thumbs.db
+
+# --- Testing ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Distribution / packaging ---
+build/
+dist/
+*.egg-info/

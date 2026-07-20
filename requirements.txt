@@ -1,0 +1,44 @@
+# SkillSync AI Backend — Python dependencies
+#
+# Scope note: this file lists only what Sprint 0's code actually
+# imports. AI/ML libraries (spaCy, Sentence Transformers, scikit-learn,
+# pandas, numpy) and the Apify client are part of the overall tech
+# stack but are NOT installed yet — they'll be added to this file in
+# the sprint that first imports them, so the environment never carries
+# dependencies the current code doesn't use.
+
+# --- Core web framework ---
+Flask==3.0.3
+# The web framework itself. Provides the app object, routing,
+# request/response handling that everything in app/routes/ builds on.
+
+# --- Database / ORM ---
+Flask-SQLAlchemy==3.1.1
+# Integrates SQLAlchemy with Flask's app context. Provides the `db`
+# object (app/extensions.py) and `db.Model` base class every model in
+# app/models/ inherits from.
+
+SQLAlchemy==2.0.35
+# Pinned explicitly (not just left as a transitive dependency of
+# Flask-SQLAlchemy) because our models use the 2.0-style typed
+# declarative API (Mapped[...], mapped_column(...)) introduced in
+# SQLAlchemy 2.0 — an older transitive version could silently break
+# that syntax.
+
+Flask-Migrate==4.0.7
+# Wraps Alembic for Flask. Provides the `migrate` object
+# (app/extensions.py) and the `flask db migrate` / `flask db upgrade`
+# CLI commands we'll use next to generate and apply the schema.
+
+# --- Cross-Origin support ---
+Flask-CORS==4.0.1
+# Provides the `cors` object (app/extensions.py), allowing the React
+# frontend (running on a different origin/port during development) to
+# call this API without the browser blocking the requests.
+
+# --- Environment configuration ---
+python-dotenv==1.0.1
+# Loads variables from a local .env file into os.environ at startup
+# (used in run.py). Lets config.py read SECRET_KEY, DATABASE_URL, etc.
+# from environment variables without requiring them to be set
+# manually in the shell every time.
