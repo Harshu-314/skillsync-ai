@@ -19,6 +19,7 @@ Why this exists:
 from flask import Flask
 
 from app.routes.health_routes import health_bp
+from app.routes.auth_routes import auth_bp
 
 
 def register_blueprints(app: Flask) -> None:
@@ -34,3 +35,4 @@ def register_blueprints(app: Flask) -> None:
         the single point of change for wiring in new route modules.
     """
     app.register_blueprint(health_bp)
+    app.register_blueprint(auth_bp)

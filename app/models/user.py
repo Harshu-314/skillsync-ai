@@ -12,17 +12,27 @@ Sprint 0 rules, this model defines structure only. Password hashing/
 verification logic will be added in the auth service (Sprint 1),
 which will operate ON this model rather than the model containing
 that logic itself, keeping persistence and business logic separate.
+
+Sprint 1 addition: inherits from Flask-Login's UserMixin, which
+supplies default implementations of is_authenticated, is_active,
+is_anonymous, and get_id() — the four things Flask-Login requires
+on any object passed to login_user()/logout_user() and checked by
+@login_required. No new columns were needed for this; UserMixin's
+defaults (always-authenticated, always-active once logged in) are
+sufficient for this project's scope, which does not include an
+admin-disable-account feature.
 """
 
 from datetime import datetime
 
+from flask_login import UserMixin
 from sqlalchemy import String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.extensions import db
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """
     Represents a registered SkillSync AI user (student / job seeker).
 

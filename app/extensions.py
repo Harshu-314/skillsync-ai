@@ -26,6 +26,7 @@ applied only when `.init_app(app)` runs inside the factory.
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_login import LoginManager
 
 # SQLAlchemy instance — imported by every model file as `from app.extensions import db`
 db = SQLAlchemy()
@@ -39,3 +40,12 @@ migrate = Migrate()
 # port/origin during development) to call this API. Actual allowed
 # origins are supplied via config (CORS_ORIGINS) when init_app runs.
 cors = CORS()
+
+# Flask-Login instance — manages session-based authentication state
+# (login_user(), logout_user(), @login_required, current_user).
+# Its user-loader callback and unauthorized-request handler are
+# registered in the factory (app/__init__.py), not here, since both
+# need the User model and UserRepository, which this module cannot
+# import without creating a circular import (models import `db` from
+# this file).
+login_manager = LoginManager()
