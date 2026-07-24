@@ -36,6 +36,12 @@ Flask-CORS==4.0.1
 # frontend (running on a different origin/port during development) to
 # call this API without the browser blocking the requests.
 
+# --- Authentication ---
+Flask-Login==0.6.3
+# Provides session-based login state: login_user()/logout_user(),
+# the @login_required decorator, and current_user proxy used across
+# app/routes/auth_routes.py and any future protected route.
+
 # --- Environment configuration ---
 python-dotenv==1.0.1
 # Loads variables from a local .env file into os.environ at startup

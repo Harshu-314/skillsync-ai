@@ -24,6 +24,7 @@ from flask import Flask
 
 from app.config import config_by_name
 from app.extensions import db, migrate, cors
+from app.auth_setup import register_login_manager
 from app.utils.logger import configure_logging
 from app.utils.error_handlers import register_error_handlers
 from app.routes import register_blueprints
@@ -54,6 +55,12 @@ def create_app(env_name: str = "development") -> Flask:
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app, origins=app.config["CORS_ORIGINS"])
+
+    # 2b. Bind Flask-Login and register its user_loader + unauthorized
+    #     handler. Kept as its own step (and own file, auth_setup.py)
+    #     since it needs the User model / UserRepository, which
+    #     extensions.py itself cannot import without a circular import.
+    register_login_manager(app)
 
     # 3. Configure logging before anything else runs, so subsequent
     #    steps (and every route/service from later sprints) can log.
