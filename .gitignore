@@ -14,6 +14,9 @@ ENV/
 # --- Environment variables (secrets — never commit) ---
 .env
 
+# --- Uploaded files (local data, not source) ---
+uploads/
+
 # --- Database (local data, not source) ---
 *.db
 *.sqlite

@@ -28,6 +28,7 @@ EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 MIN_PASSWORD_LENGTH = 8
 MIN_NAME_LENGTH = 2
 MAX_NAME_LENGTH = 100
+ALLOWED_RESUME_EXTENSIONS = {"pdf"}
 
 
 def validate_registration_input(name: str, email: str, password: str) -> None:
@@ -95,3 +96,23 @@ def validate_email_format(email: str) -> None:
         raise ValueError("Email is required.")
     if not EMAIL_PATTERN.match(email.strip()):
         raise ValueError("Please provide a valid email address.")
+
+
+def validate_resume_file(file) -> None:
+    """
+    Validates an uploaded resume file before it's saved to disk.
+
+    Args:
+        file: A werkzeug FileStorage object from request.files, or
+            None if no file was attached to the request.
+
+    Raises:
+        ValueError: if no file was provided, no file was selected,
+            or the extension isn't in ALLOWED_RESUME_EXTENSIONS.
+    """
+    if file is None or file.filename == "":
+        raise ValueError("No resume file was provided.")
+
+    extension = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else ""
+    if extension not in ALLOWED_RESUME_EXTENSIONS:
+        raise ValueError("Only PDF files are supported for resume upload.")

@@ -65,6 +65,13 @@ class Config:
     MAX_CONTENT_LENGTH: int = 5 * 1024 * 1024  # 5 MB, per SRS section 10
     ALLOWED_RESUME_EXTENSIONS: set[str] = {"pdf"}
 
+    # Where uploaded resume PDFs are saved on disk. Built from BASE_DIR
+    # (not a relative path) so it resolves consistently regardless of
+    # the working directory `python run.py` happens to be launched
+    # from. Local disk storage only — no cloud storage (S3 etc.), per
+    # the project's stated "no cloud infrastructure" scope constraint.
+    UPLOAD_FOLDER: str = os.path.join(BASE_DIR, "uploads", "resumes")
+
     # --- Session / misc ---
     PERMANENT_SESSION_LIFETIME = timedelta(hours=12)
 

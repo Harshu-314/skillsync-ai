@@ -42,6 +42,10 @@ Flask-Login==0.6.3
 # the @login_required decorator, and current_user proxy used across
 # app/routes/auth_routes.py and any future protected route.
 
+# --- PDF processing ---
+PyMuPDF==1.24.11
+# Extracts text content from uploaded resume PDFs (app/utils/pdf_extractor.py).
+
 # --- Environment configuration ---
 python-dotenv==1.0.1
 # Loads variables from a local .env file into os.environ at startup
