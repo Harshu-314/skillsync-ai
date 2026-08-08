@@ -46,6 +46,13 @@ Flask-Login==0.6.3
 PyMuPDF==1.24.11
 # Extracts text content from uploaded resume PDFs (app/utils/pdf_extractor.py).
 
+# --- NLP / Skill extraction ---
+spacy==3.7.5
+# Used via spacy.blank("en") + PhraseMatcher for deterministic,
+# taxonomy-based skill extraction (app/ai/skill_extractor.py). No
+# trained pipeline (en_core_web_sm) is downloaded or required — only
+# tokenization is needed, not POS tagging or NER.
+
 # --- Environment configuration ---
 python-dotenv==1.0.1
 # Loads variables from a local .env file into os.environ at startup
